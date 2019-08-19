@@ -15,12 +15,23 @@ int main(int argc, char **argv)
     //90% confident that [0.9, 0.5, 0.1] is a dog
     */
 
+    //Second explanation
+    /*
     Neuron *n = new Neuron(1.5);
 
     cout << "Val: " << n->getVal() << endl;
     cout << "Activated Val: " << n->getActivatedVal() << endl;
     cout << "Derived Val: " << n->getDerivedVal() << endl;
+    */
 
+    //3rd explanation
+    Matrix *m = new Matrix(3, 2, true);
+    m->printToConsole();
+
+    cout << "---------------" << endl;
+
+    Matrix *mT = m->transpose();
+    mT->printToConsole();
 
     return 0;
 }

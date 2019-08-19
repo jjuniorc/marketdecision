@@ -4,7 +4,17 @@
 //Constructor
 Neuron::Neuron(double val)
 {
+    /*
     this->val = val;
+    activate();
+    derive();
+    */
+    this->setVal(val);
+}
+
+void Neuron::setVal(double v)
+{
+    this->val = v;
     activate();
     derive();
 }

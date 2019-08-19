@@ -1,5 +1,4 @@
 #ifndef _NEURON_H_
-
 #define _NEURON_H_
 
 class Neuron
@@ -7,6 +6,8 @@ class Neuron
 public:
     //Constructor
     Neuron(double val);
+
+    void setVal(double v);
 
     //Fast Sigmoid Function
     // f(x) = x / (1 + |x|)
