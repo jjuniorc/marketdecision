@@ -25,6 +25,7 @@ int main(int argc, char **argv)
     */
 
     //3rd explanation
+    /*
     Matrix *m = new Matrix(3, 2, true);
     m->printToConsole();
 
@@ -32,6 +33,26 @@ int main(int argc, char **argv)
 
     Matrix *mT = m->transpose();
     mT->printToConsole();
+    */
+
+    //4th explanation
+    vector<int> topology;
+    topology.push_back(3);
+    topology.push_back(2);
+    topology.push_back(3);
+
+    vector<double> input;
+    input.push_back(1.0);
+    input.push_back(0.0);
+    input.push_back(1.0);
+
+    NeuralNetwork *nn = new NeuralNetwork(topology);
+
+    nn->setCurrentInput(input);
+
+    nn->printToConsole();
+
+
 
     return 0;
 }
