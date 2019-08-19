@@ -1,12 +1,12 @@
 # marketdecision
 Artificial Neural Network for Market Decision
 
-## H2 Installation
+## Installation
 mkdir -p build
 cd build
 cmake ../
 make
 
-## H2 Usage
+## Usage
 cd build
 ./main
