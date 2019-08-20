@@ -3,6 +3,8 @@
 #include <iostream>
 using namespace std;
 
+#include "MultiplyMatrix.h"
+
 //Constructor
 NeuralNetwork::NeuralNetwork(vector<int> topology)
 {
@@ -72,3 +74,45 @@ void NeuralNetwork::printToConsole()
         }
     }
 }
+
+void NeuralNetwork::feedForward()
+{
+    for(unsigned i = 0; i < (this->layers.size() - 1); i++ )
+    {
+        Matrix *a = this->getNeuronMatrix(i);
+
+        if(i != 0)
+        {
+            a = this->getActivatedNeuronMatrix(i);
+        }
+
+        Matrix *b = this->getWeightMatrix(i);
+        Matrix *c = (new MultiplyMatrix(a, b))->execute();
+
+        //vector<double> vals;
+        for(int c_index = 0; c_index < c->getNumCols(); c_index++)
+        {
+            //vals.push_back(c->getValue(0, c_index));
+            int nextLayerIndex = i + 1;
+            this->setNeuronValue(nextLayerIndex, c_index, c->getValue(0, c_index));
+        }
+    }
+}
+
+/*
+Matrix NeuralNetwork::getNeuronMatrix(int index)
+{
+    return this->layers.at(index)->matrixifyVals();
+}
+
+Matrix NeuralNetwork::getActivatedNeuronMatrix(int index)
+{
+    return this->layers.at(index)->matrixifyDerivedVals();
+}
+
+Matrix NeuralNetwork::getWeightMatrix(int index)
+{
+    return this->weightMatrices.at(index);
+}
+*/
+
