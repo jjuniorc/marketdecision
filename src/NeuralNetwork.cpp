@@ -72,6 +72,16 @@ void NeuralNetwork::printToConsole()
             m = this->layers.at(ix)->matrixifyActivatedVals();
             m->printToConsole();
         }
+
+
+        if(ix < this->layers.size() - 1)
+        {
+            cout << "=====================" << endl;
+            cout << "Weight Matrix: " << ix << endl;
+            this->getWeightMatrix(ix)->printToConsole();
+            cout << "=====================" << endl;
+        }
+
     }
 }
 
