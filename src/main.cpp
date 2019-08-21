@@ -71,8 +71,6 @@ int main(int argc, char **argv)
 
     nn->printToConsole();
 
-
-
     return 0;
 }
 // Function definition

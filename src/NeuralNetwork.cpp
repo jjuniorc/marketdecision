@@ -126,3 +126,27 @@ Matrix NeuralNetwork::getWeightMatrix(int index)
 }
 */
 
+Matrix *NeuralNetwork::getNeuronMatrix(int index)
+{
+    return this->layers.at(index)->matrixifyVals();
+}
+
+Matrix *NeuralNetwork::getActivatedNeuronMatrix(int index)
+{
+    return this->layers.at(index)->matrixifyActivatedVals();
+}
+
+Matrix *NeuralNetwork::getDerivedNeuronMatrix(int index)
+{
+    return this->layers.at(index)->matrixifyDerivedVals();
+}
+
+Matrix *NeuralNetwork::getWeightMatrix(int index)
+{
+    return this->weightMatrices.at(index);
+}
+
+void NeuralNetwork::setNeuronValue(int indexLayer, int indexNeuron, double val)
+{
+    this->layers.at(indexLayer)->setVal(indexNeuron, val);
+}
