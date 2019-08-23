@@ -53,3 +53,18 @@ Matrix *Layer::matrixifyDerivedVals()
 
     return m;
 }
+/*
+vector<double> Layer::getActivatedVals()
+{
+
+}
+*/
+vector<Neuron *> Layer::getNeurons()
+{
+    return this->neurons;
+}
+
+void Layer::setNeuron(vector<Neuron *> neurons)
+{
+    this->neurons = neurons;
+}

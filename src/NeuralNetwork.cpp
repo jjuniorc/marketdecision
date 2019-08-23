@@ -23,6 +23,12 @@ NeuralNetwork::NeuralNetwork(vector<int> topology)
         this->weightMatrices.push_back(m);
     }
 
+    // Initialize empty errors
+    for(int i = 0; i < topology.at(topology.size() - 1); i++)
+    {
+        errors.push_back(0.00);
+    }
+
 }
 
 void NeuralNetwork::setCurrentInput(vector<double> input)
@@ -34,6 +40,11 @@ void NeuralNetwork::setCurrentInput(vector<double> input)
     {
         this->layers.at(0)->setVal(ix, input.at(ix));
     }
+}
+
+void NeuralNetwork::setCurrentTarget(vector<double> target)
+{
+    this->target = target;
 }
 
 int NeuralNetwork::getTopologySize()
@@ -149,4 +160,43 @@ Matrix *NeuralNetwork::getWeightMatrix(int index)
 void NeuralNetwork::setNeuronValue(int indexLayer, int indexNeuron, double val)
 {
     this->layers.at(indexLayer)->setVal(indexNeuron, val);
+}
+
+double NeuralNetwork::getTotalError()
+{
+    return this->error;
+}
+
+vector<double> NeuralNetwork::getErrors()
+{
+    return this->errors;
+}
+
+void NeuralNetwork::setErrors()
+{
+    if(this->target.size() == 0)
+    {
+        cerr << "No target for this neural network" << endl;
+        assert(false);
+    }
+
+    if(this->target.size() != this->layers.at(this->layers.size() - 1)->getNeurons().size())
+    {
+        cerr << "Target size is not the same as output layer size: " << this->layers.at(this->layers.size() -1)->getNeurons().size() << endl;
+        assert(false);
+    }
+
+    this->error = 0.00;
+    int outputLayerIndex = this->layers .size() - 1;
+    vector<Neuron *> outputNeurons = this->layers.at(outputLayerIndex)->getNeurons();
+
+    for(unsigned i = 0; i < target.size(); i++)
+    {
+        //Determine how far the activated value is from target value
+        double tempErr = (outputNeurons.at(i)->getActivatedVal() - target.at(i));
+        errors.at(i) = tempErr;
+        this->error += tempErr;
+    }
+
+    historicalErrors.push_back(this->error);
 }

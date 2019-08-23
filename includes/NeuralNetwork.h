@@ -14,6 +14,7 @@ public:
     NeuralNetwork(vector<int> topology);
 
     void setCurrentInput(vector<double> input);
+    void setCurrentTarget(vector<double> target);
 
     int getTopologySize();
     void setTopologySize(int topologySize);
@@ -29,13 +30,21 @@ public:
 
     void setNeuronValue(int indexLayer, int indexNeuron, double val);
 
+    double getTotalError();
+    vector<double> getErrors();
+    void setErrors();
+
 
 private:
-    vector<double>      input;
     int                 topologySize;
     vector<int>         topology;
     vector<Layer *>     layers;
+    vector<double>      input;
     vector<Matrix *>    weightMatrices;
+    vector<double>      target;
+    double              error;
+    vector<double>      errors;
+    vector<double>      historicalErrors;
 };
 
 #endif

@@ -17,12 +17,14 @@ public:
     Matrix *matrixifyActivatedVals();
     Matrix *matrixifyDerivedVals();
 
+    //vector<double> getActivatedVals();
+
+    vector<Neuron *> getNeurons();
+    void setNeuron(vector<Neuron *> neurons);
+
 private:
     int size;
-
     vector<Neuron *> neurons;
-
-
 };
 
 #endif
