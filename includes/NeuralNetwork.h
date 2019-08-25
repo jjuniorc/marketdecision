@@ -21,6 +21,7 @@ public:
     vector<int> getTopology();
     void setTopology(vector<int> topology);
     void feedForward();
+    void backPropagation();
     void printToConsole();
 
     Matrix *getNeuronMatrix(int index);
@@ -41,6 +42,7 @@ private:
     vector<Layer *>     layers;
     vector<double>      input;
     vector<Matrix *>    weightMatrices;
+    vector<Matrix *>    gradientMatrices;
     vector<double>      target;
     double              error;
     vector<double>      errors;

@@ -94,6 +94,8 @@ int main(int argc, char **argv)
 
     cout << "Total Error: " << nn->getTotalError() << endl;
 
+    nn->backPropagation();
+
     return 0;
 }
 // Function definition
