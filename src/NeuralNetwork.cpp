@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <math.h>
 using namespace std;
 
 #include "MultiplyMatrix.h"
@@ -186,7 +187,7 @@ void NeuralNetwork::backPropagation()
     for(int i = (outputLayerIndex - 1); i > 0; i--)
     {
         Layer *l = this->layers.at(i);
-        Matrix *derivedHidden = l->matrixifyDerivedVals();
+        //Matrix *derivedHidden = l->matrixifyDerivedVals();
         Matrix *derivedGradients = new Matrix(1, l->getNeurons().size(), false);
         Matrix *activatedHidden = l->matrixifyActivatedVals();
 
@@ -323,10 +324,69 @@ void NeuralNetwork::setErrors()
     for(unsigned i = 0; i < target.size(); i++)
     {
         //Determine how far the activated value is from target value
+
         double tempErr = (outputNeurons.at(i)->getActivatedVal() - target.at(i));
+
         errors.at(i) = tempErr;
-        this->error += tempErr;
+
+        //Non-quadract sum of errors
+        //this->error += tempErr;
+
+        //Quadradic for sum of errors
+        this->error += pow(tempErr, 2);
     }
 
+    //Used for quadratic error result
+    this->error = 0.5 * this->error;
+
     historicalErrors.push_back(this->error);
+}
+
+void NeuralNetwork::printInputToConsole()
+{
+    for(unsigned i = 0; i < this->input.size(); i++)
+    {
+        cout << this->input.at(i) << "\t";
+    }
+
+    cout << endl;
+}
+
+void NeuralNetwork::printTargetToConsole()
+{
+    for(unsigned i = 0; i < this->target.size(); i++)
+    {
+        cout << this->target.at(i) << "\t";
+    }
+
+    cout << endl;
+}
+
+void NeuralNetwork::printOutputToConsole()
+{
+    int indexOfOutputLayer = this->layers.size() - 1;
+    Matrix *outputValues = this->layers.at(indexOfOutputLayer)->matrixifyActivatedVals();
+    for(int c = 0; c < outputValues->getNumCols(); c++)
+    {
+        cout << outputValues->getValue(0, c) << "\t";
+    }
+
+    cout << endl;
+}
+
+void NeuralNetwork::printHistoricalErrors()
+{
+    for(unsigned i = 0 ; i < this->historicalErrors.size(); i++)
+    {
+        cout << this->historicalErrors.at(i);
+
+        if(i != this->historicalErrors.size() - 1)
+        {
+            cout << ",";
+        }
+        else
+        {
+            cout << endl;
+        }
+    }
 }

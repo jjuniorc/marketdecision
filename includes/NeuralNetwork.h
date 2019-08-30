@@ -31,6 +31,11 @@ public:
 
     void setNeuronValue(int indexLayer, int indexNeuron, double val);
 
+    void printInputToConsole();
+    void printOutputToConsole();
+    void printTargetToConsole();
+    void printHistoricalErrors();
+
     double getTotalError();
     vector<double> getErrors();
     void setErrors();

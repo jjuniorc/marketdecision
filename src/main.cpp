@@ -89,8 +89,8 @@ int main(int argc, char **argv)
     nn->setCurrentTarget(input);
 
     //Training process
-    //Training for 10000 times
-    for(int i = 0; i < 10000; i++)
+    //Training for 1000 times
+    for(int i = 0; i < 1000; i++)
     {
         cout << "Epoch: " << i << endl;
         nn->feedForward();
@@ -98,7 +98,20 @@ int main(int argc, char **argv)
         //nn->printToConsole();
         cout << "Total Error: " << nn->getTotalError() << endl;
         nn->backPropagation();
+
+        cout << "=========================" << endl;
+        cout << "OUTPUT: ";
+        nn->printOutputToConsole();
+
+        cout << "TARGET: ";
+        nn->printTargetToConsole();
+
+        cout << "INPUT: ";
+        nn->printInputToConsole();
+        cout << "=========================" << endl;
     }
+
+    //nn->printHistoricalErrors();
 
     return 0;
 }
