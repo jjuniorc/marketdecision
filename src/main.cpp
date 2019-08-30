@@ -87,14 +87,18 @@ int main(int argc, char **argv)
     NeuralNetwork *nn = new NeuralNetwork(topology);
     nn->setCurrentInput(input);
     nn->setCurrentTarget(input);
-    nn->feedForward();
-    nn->setErrors();
 
-    nn->printToConsole();
-
-    cout << "Total Error: " << nn->getTotalError() << endl;
-
-    nn->backPropagation();
+    //Training process
+    //Training for 10000 times
+    for(int i = 0; i < 10000; i++)
+    {
+        cout << "Epoch: " << i << endl;
+        nn->feedForward();
+        nn->setErrors();
+        //nn->printToConsole();
+        cout << "Total Error: " << nn->getTotalError() << endl;
+        nn->backPropagation();
+    }
 
     return 0;
 }

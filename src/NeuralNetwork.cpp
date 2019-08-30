@@ -1,6 +1,7 @@
 #include "NeuralNetwork.h"
 
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 #include "MultiplyMatrix.h"
@@ -190,13 +191,16 @@ void NeuralNetwork::backPropagation()
         Matrix *activatedHidden = l->matrixifyActivatedVals();
 
         Matrix *weightMatrix = this->weightMatrices.at(i);
+        Matrix *originalWeight = this->weightMatrices.at(i - 1);
 
         for(int r = 0; r < weightMatrix->getNumRows(); r++)
         {
             double sum = 0;
             for(int c = 0; c < weightMatrix->getNumCols(); c++)
             {
-                double p = gradients->getValue(r, c) * weightMatrix->getValue(r, c);
+                //cout << r << ", " << c << endl;
+                //double p = gradients->getValue(r, c) * weightMatrix->getValue(r, c); //WRONG
+                double p = gradients->getValue(0, c) * weightMatrix->getValue(r, c);
                 sum += p;
             }
 
@@ -213,8 +217,36 @@ void NeuralNetwork::backPropagation()
 
         //TODO
         //At 55m 24s
+
+        Matrix *newWeightsHidden = new Matrix(deltaWeights->getNumRows(), deltaWeights->getNumCols(), false);
+        for(int r = 0; r < newWeightsHidden->getNumRows(); r++)
+        {
+            for(int c = 0; c < newWeightsHidden->getNumCols(); c++)
+            {
+                double w = originalWeight->getValue(r, c);
+                double d = deltaWeights->getValue(r, c);
+                double n = w - d;
+                newWeightsHidden->setValue(r, c, n);
+            }
+        }
+
+        gradients = new Matrix(derivedGradients->getNumCols(), derivedGradients->getNumCols(), false);
+        for(int r = 0; r < derivedGradients->getNumRows(); r++)
+        {
+            for(int c = 0; c < derivedGradients->getNumCols(); c++)
+            {
+                gradients->setValue(r, c, derivedGradients->getValue(r, c) );
+            }
+        }
+
+        newWeights.push_back(newWeightsHidden);
+
     }
 
+    //cout << "Done with back prop" << endl;
+
+    std::reverse(newWeights.begin(), newWeights.end());
+    this->weightMatrices = newWeights;
 
 }
 
